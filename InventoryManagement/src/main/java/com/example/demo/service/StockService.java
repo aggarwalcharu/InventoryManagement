@@ -4,9 +4,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entity.RawMaterials;
+//import com.example.demo.entity.RawMaterials;
 import com.example.demo.entity.Stock;
-import com.example.demo.exception.RawMaterialsNotFoundException;
+//import com.example.demo.exception.RawMaterialsNotFoundException;
 import com.example.demo.repository.RawMaterialsRepository;
 import com.example.demo.repository.StockRepository;
 
@@ -19,6 +19,7 @@ public class StockService {
     RawMaterialsRepository rawMaterialsRepository;
 	
 	public void addStock(Stock stock){
+		
 		stockRepository.save(stock);
 	}
 	public List<Stock> getAllRawMaterialsInStock() {
@@ -26,16 +27,16 @@ public class StockService {
 		
 	}
 
-	public void deleteRawMaterials(String name) throws RawMaterialsNotFoundException {
-		
-		RawMaterials rawMaterials=rawMaterialsRepository.findByName(name);
-		
-		Stock stock=stockRepository.findByRawMaterials(rawMaterials);
-		if(stock!=null) {
-		stockRepository.delete(stock);
-		}else
-			throw new RawMaterialsNotFoundException("Raw Material name not found.");
-	}
+//	public void deleteRawMaterials(String name) throws RawMaterialsNotFoundException {
+//		
+//		RawMaterials rawMaterials=rawMaterialsRepository.findByName(name);
+//		
+//		Stock stock=stockRepository.findByRawMaterials(rawMaterials);
+//		if(stock!=null) {
+//		stockRepository.delete(stock);
+//		}else
+//			throw new RawMaterialsNotFoundException("Raw Material name not found.");
+//	}
 		
 	}
 	
