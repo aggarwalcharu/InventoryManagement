@@ -1,5 +1,8 @@
 package com.example.demo.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -24,57 +27,68 @@ import com.example.demo.entity.RawMaterials;
 import com.example.demo.exception.RawMaterialsNotFoundException;
 import com.example.demo.service.RawMaterialService;
 
+@Api(tags = { "RawMaterials Entity" })
 @RestController
 @RequestMapping("/inventory")
 public class RawMaterialsController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(RawMaterialsController.class);
+
+	private static final Logger logger = LoggerFactory
+			.getLogger(RawMaterialsController.class);
 
 	@Autowired
 	RawMaterialService rawMaterialService;
-	
-	@CachePut(value="rawMaterials",unless="#result==null")
+
+	@ApiOperation(value = "Add Raw Material", notes = "")
+	@CachePut(value = "rawMaterials", unless = "#result==null")
 	@PostMapping("/rawMaterials/add")
 	public void addRawMaterials(@RequestBody RawMaterials rawMaterials) {
 		rawMaterialService.addRawMaterials(rawMaterials);
 	}
-	
-	@Cacheable(value="rawMaterials" ,unless="#result==null")
+
+	@ApiOperation(value = "Get Raw Materials", notes = "")
+	@Cacheable(value = "rawMaterials", unless = "#result==null")
 	@GetMapping("/rawMaterials")
-	public List<RawMaterials> getAllRawMaterilas(){
+	public List<RawMaterials> getAllRawMaterilas() {
 		return rawMaterialService.getAllRawMaterials();
 	}
-	
-	@Cacheable(value="rawMaterials",key ="#id",unless="#result==null")
-	@GetMapping("/rawMaterials/{id}")
+
+	@ApiOperation(value = "Get Raw Material By Id", notes = "")
+	@Cacheable(value = "rawMaterials", key = "#id", unless = "#result==null")
+	@GetMapping("/rawMaterials/get/{id}")
 	@ResponseBody
-	public RawMaterials getRawMaterialById(@PathVariable int id) throws RawMaterialsNotFoundException {
-		logger.debug("ID searched for raw material",id);
-	    return rawMaterialService.getRawMaterialById(id);
-	            
+	public RawMaterials getRawMaterialById(@PathVariable int id)
+			throws RawMaterialsNotFoundException {
+		logger.debug("ID searched for raw material", id);
+		return rawMaterialService.getRawMaterialById(id);
+
 	}
-	@CachePut(value="rawMaterials",key="#id",unless="#result==null")
-	@PutMapping("rawMaterials/{id}")
-    public ResponseEntity <RawMaterials> updateRawMaterial(@RequestBody RawMaterials rawMaterial, @PathVariable int id) throws RawMaterialsNotFoundException {
+
+	@ApiOperation(value = "Update Raw Material", notes = "")
+	@CachePut(value = "rawMaterials", key = "#id", unless = "#result==null")
+	@PutMapping("rawMaterials/update/{id}")
+	public ResponseEntity<RawMaterials> updateRawMaterial(
+			@RequestBody RawMaterials rawMaterial, @PathVariable int id)
+			throws RawMaterialsNotFoundException {
 		rawMaterial.setId(id);
-		logger.debug("ID updated for raw material",id);
-		return ResponseEntity.ok(this.rawMaterialService.updateRawMaterial(rawMaterial));
-    }
-	@CacheEvict(value="rawMaterials",key="#id")
-	@DeleteMapping("/rawMaterials/{id}")
-    public HttpStatus deleteProduct(@PathVariable int id) throws RawMaterialsNotFoundException {
-        this.rawMaterialService.deleteRawMaterial(id);
-        logger.debug("Raw material deleted successfully");
-        return  HttpStatus.OK;
+		logger.debug("ID updated for raw material", id);
+		return ResponseEntity.ok(this.rawMaterialService
+				.updateRawMaterial(rawMaterial));
 	}
-	
-	@CacheEvict(value="rawMaterials" ,allEntries=true)
+
+	@ApiOperation(value = "Delete Raw Material", notes = "")
+	@CacheEvict(value = "rawMaterials", key = "#id")
+	@DeleteMapping("/rawMaterials/delete/{id}")
+	public HttpStatus deleteProduct(@PathVariable int id)
+			throws RawMaterialsNotFoundException {
+		this.rawMaterialService.deleteRawMaterial(id);
+		logger.debug("Raw material deleted successfully");
+		return HttpStatus.OK;
+	}
+
+	@CacheEvict(value = "rawMaterials", allEntries = true)
 	@RequestMapping("/clearCache")
-	public String clearCache(){
+	public String clearCache() {
 		return "Clear Cache";
 	}
-	
-	
-}
-	
 
+}

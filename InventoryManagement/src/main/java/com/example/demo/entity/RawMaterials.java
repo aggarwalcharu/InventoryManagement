@@ -31,19 +31,8 @@ public class RawMaterials implements Serializable{
 	@Column(name="cost")
 	private long cost;
 	
-//	@OneToOne(fetch = FetchType.LAZY,
-//            cascade =  CascadeType.ALL,
-//            mappedBy = "raw_materials_id")
-    private Stock stock;
+
 	
-	public Stock getStock() {
-		return stock;
-	}
-
-	public void setStock(Stock stock) {
-		this.stock = stock;
-	}
-
 	public int getId() {
 		return id;
 	}

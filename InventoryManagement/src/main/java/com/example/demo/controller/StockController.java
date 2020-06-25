@@ -1,5 +1,8 @@
 package com.example.demo.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +19,22 @@ import com.example.demo.entity.Stock;
 //import com.example.demo.exception.RawMaterialsNotFoundException;
 import com.example.demo.service.StockService;
 
+
+@Api(tags= {"Stock Entity"})
 @RestController
 @RequestMapping("/inventory")
 public class StockController {
 	@Autowired
 	StockService stockService;
-
+	
+	@ApiOperation(value="Get Stock",notes="")
 	@GetMapping("/stock")
 	public List<Stock> getAllRawMaterialsInStock(){
 		
 		return stockService.getAllRawMaterialsInStock();
 	}
 
+	@ApiOperation(value="add Stock",notes="")
 	@PostMapping("/stock/add")
 	public void addStock(@RequestBody Stock Stock,RawMaterials rawMaterials){
 		Stock stock = new Stock();
