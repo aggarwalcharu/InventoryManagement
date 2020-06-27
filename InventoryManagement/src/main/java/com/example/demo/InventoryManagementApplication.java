@@ -10,6 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @ComponentScan("com.example.demo")
 @EnableCaching
+
 public class InventoryManagementApplication {
 	
 	private static final Logger logger=LoggerFactory.getLogger(InventoryManagementApplication.class);
@@ -17,7 +18,7 @@ public class InventoryManagementApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(InventoryManagementApplication.class, args);
 		
-		logger.info("Simple log statement with inputs {}, {} and {}", 1,2,3);
+		logger.info("Simple log statement with inputs", 1,2,3);
 	}
 
 }
