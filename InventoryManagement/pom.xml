@@ -100,7 +100,14 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-	</dependencies>
+		<!-- https://mvnrepository.com/artifact/org.codehaus.sonar/sonar-plugin-api -->
+<dependency>
+    <groupId>org.codehaus.sonar</groupId>
+    <artifactId>sonar-plugin-api</artifactId>
+    <version>3.4.1</version>
+    <scope>provided</scope>
+</dependency>
+</dependencies>
 
 	<build>
 		<plugins>
@@ -108,7 +115,9 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-		</plugins>
+		
+		
+            </plugins>
 	</build>
 
 </project>
